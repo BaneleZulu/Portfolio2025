@@ -103,19 +103,19 @@ require($_SERVER['DOCUMENT_ROOT'] . '/includes/header.html');
     <!--//? ******************main nav bar  -->
     <nav class="navigate" role="tablist" aria-labelledby="channel-name">
         <button id="tab-1" role="tab" aria-controls="tabPanel-1" aria-selected="true" tabindex="0"
-            data-url="home.html">Home</button>
+            data-url="/src/home.html">Home</button>
         <button id="tab-2" role="tab" aria-controls="tabPanel-2" aria-selected="false" tabindex="-1"
-            data-url="about.html">About</button>
+            data-url="/src/about.html">About</button>
         <button id="tab-3" role="tab" aria-controls="tabPanel-3" aria-selected="false" tabindex="-1"
-            data-url="services.html">Services</button>
+            data-url="/src/services.html">Services</button>
         <button id="tab-4" role="tab" aria-controls="tabPanel-4" aria-selected="false" tabindex="-1"
-            data-url="work.html">Experience</button>
+            data-url="/src/work.html">Experience</button>
         <button id="tab-5" role="tab" aria-controls="tabPanel-5" aria-selected="false" tabindex="-1"
-            data-url="portfolio.html">Projects</button>
+            data-url="/src/portfolio.html">Projects</button>
         <button id="tab-6" role="tab" aria-controls="tabPanel-6" aria-selected="false" tabindex="-1"
-            data-url="blog.html">Blog</button>
+            data-url="/src/blog.html">Blog</button>
         <button id="tab-7" role="tab" aria-controls="tabPanel-7" aria-selected="false" tabindex="-1"
-            data-url="contact.html">Contact</button>
+            data-url="/src/contact.html">Contact</button>
     </nav>
 
     <article class="tab-panels">
