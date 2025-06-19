@@ -1,0 +1,255 @@
+#portfolio {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#portfolio .banner {
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 15rem;
+  background: var(--clr-body-bg);
+}
+
+#portfolio .banner .slider {
+  position: absolute;
+  width: 200px;
+  height: 250px;
+  top: 10%;
+  left: calc(50% - 100px);
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  animation: autoRun 20s linear infinite;
+  z-index: 2;
+  margin-bottom: 100px;
+}
+
+/*//?This CSS animations creates the spinning effect on the project images*/
+/*//?Animator is infinite  */
+@keyframes autoRun {
+  from {
+    transform: perspective(1000px) rotateX(-16deg) rotateY(0deg);
+  }
+  to {
+    transform: perspective(1000px) rotateX(-16deg) rotateY(360deg);
+  }
+}
+
+#portfolio .banner .slider .item {
+  position: absolute;
+  inset: 0 0 0 0;
+  transform: rotateY(
+      calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)
+    )
+    translateZ(550px);
+}
+#portfolio .banner .slider .item img {
+  width: 300;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ---===  myProjects SECTION START ===---- */
+section#myProjects {
+  padding: 70px 30px;
+
+  & div.projects-row {
+    margin: 50 0 10px 0px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 35px;
+
+    & .project-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 20%);
+
+      & img {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      & .project_img.mobile img {
+        object-fit: contain;
+        width: 100%;
+        height: 20rem;
+      }
+
+      & .project_info {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--clr-card-bg);
+        padding: 0 2px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        transform: scale(0);
+        transition: 0.4s;
+        border-radius: 10px;
+        visibility: hidden;
+        cursor: pointer;
+        transform-origin: top center;
+
+        & h4 {
+          color: var(--clr-heading);
+          padding-top: 5px;
+          font-size: 1.2em;
+          font-weight: 600;
+          margin-bottom: -15px;
+        }
+
+        & p {
+          color: var(--clr-text);
+          font-size: 0.8rem;
+          padding: 0;
+        }
+
+        & a {
+          display: inline-block;
+          font-size: 15px;
+          width: 45px;
+          height: 45px;
+          background-color: var(--clr-body-bg);
+          border-radius: 50%;
+          line-height: 46px;
+          transition: 0.4s;
+        }
+      }
+    }
+  }
+}
+
+#myProjects .projects-row .project-item:hover .project_info {
+  transform: scale(1);
+  visibility: visible;
+}
+#myProjects .projects-row .project-item .project_info a:hover {
+  background-color: var(--bgColor);
+  color: var(--clr-text);
+}
+
+/* //? ************************** RESPONSIVE DESIGN ************ /
+/** DESKTOP & LAPTOPS  */
+@media screen and (max-width: 1444px) {
+  #portfolio .banner .slider {
+    width: 200px;
+    height: 220px;
+    left: calc(50% - 90px);
+  }
+  #portfolio .banner .slider .item {
+    transform: rotateY(
+        calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)
+      )
+      translateZ(500px);
+  }
+}
+/** DESKTOP & LAPTOPS  */
+@media screen and (max-width: 1399px) {
+  #portfolio .banner .slider {
+    width: 200px;
+    height: 200px;
+    left: calc(50% - 90px);
+  }
+  #portfolio .banner .slider .item {
+    transform: rotateY(
+        calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)
+      )
+      translateZ(470px);
+  }
+}
+
+/** TABLET DEVICES  */
+@media screen and (max-width: 1290px) {
+  #portfolio .banner .slider {
+    width: 200px;
+    height: 250px;
+    left: calc(50% - 90px);
+  }
+  #portfolio .banner .slider .item {
+    transform: rotateY(
+        calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)
+      )
+      translateZ(450px);
+  }
+
+  section#myProjects .projects-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media screen and (max-width: 1140px) {
+  #portfolio .banner {
+    height: 70dvh;
+  }
+
+  #portfolio .banner .slider {
+    width: 180px;
+    height: 180px;
+    left: calc(50% - 90px);
+  }
+  #portfolio .banner .slider .item {
+    transform: rotateY(
+        calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)
+      )
+      translateZ(400px);
+  }
+}
+
+/** SMALL DEVICES  */
+@media screen and (max-width: 1000px) {
+  #portfolio .banner {
+    height: 60dvh;
+  }
+  #portfolio .banner .slider {
+    width: 160px;
+    height: 240px;
+    left: calc(50% - 80px);
+    animation: autoRunY 20s linear infinite; /* New animation for small screens */
+  }
+  #portfolio .banner .slider .item {
+    transform: rotateY(90deg)
+      rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+      translateZ(270px);
+  }
+  @keyframes autoRunY {
+    from {
+      transform: perspective(1000px) rotateY(0deg);
+    }
+    to {
+      transform: perspective(1000px) rotateY(360deg);
+    }
+  }
+}
+
+@media screen and (max-width: 860px) {
+  section#myProjects .projects-row {
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  #portfolio .banner {
+    height: fit-content;
+  }
+
+  #portfolio .banner .slider {
+    width: 120px;
+    height: 170px;
+    left: calc(50% - 80px);
+    animation: autoRunY 20s linear infinite; /* New animation for small screens */
+  }
+  #portfolio .banner .slider .item {
+    transform: rotateY(90deg)
+      rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+      translateZ(200px);
+  }
+}

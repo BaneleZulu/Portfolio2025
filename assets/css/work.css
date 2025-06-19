@@ -1,0 +1,475 @@
+/* //? ************************** TIMELINE SECTION */
+#work .timeline {
+  position: relative;
+  width: 100%;
+  height: 70dvh;
+  border: 2px solid #fff;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0;
+}
+
+#work .timeline .timeline-item {
+  position: relative;
+  width: 20rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  filter: blur(1) grayscale(1);
+  background: var(--clr-nav-bg);
+  border-right: 1px solid var(--clr-heading);
+}
+
+#work .timeline .timeline-item:is(:hover, :focus) {
+  position: relative;
+  top: -3rem;
+  width: 25rem;
+  height: 100%;
+  z-index: 10;
+  filter: blur(1) grayscale(1);
+  transition: all 0.5s ease-in-out;
+
+  div.holder {
+    font-size: 1rem;
+    padding-inline: 0.2rem;
+  }
+}
+
+#work .timeline .timeline-item .timeline-icon {
+  width: 100%;
+  height: 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  background: var(--clr-body-bg);
+
+  i {
+    width: 100%;
+    text-align: center;
+    font-size: 4rem;
+    color: var(--clr-heading);
+  }
+
+  h6 {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+#work .timeline .timeline-item .timeline-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  #work .wrapper.tools .img-parent {
+    width: 100% !important;
+  } /* overflow: hidden; */
+
+  h2.title {
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1;
+    text-decoration: underline;
+    text-align: center;
+  }
+
+  span.circle {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+    border: 1rem solid var(--clr-heading);
+  }
+
+  /* //? crossover line-RIGHT 1*/
+  span.circle::before {
+    content: "";
+    position: absolute;
+    top: 0.35rem;
+    left: 1rem;
+    z-index: 1;
+    width: 9.5rem;
+    height: 0.5rem;
+    background: var(--clr-heading);
+  }
+
+  /* //? crossover line-LEFT 2*/
+  span.circle::after {
+    content: "";
+    position: absolute;
+    top: 0.35rem;
+    right: 1rem;
+    z-index: 1;
+    width: 9.5rem;
+    height: 0.5rem;
+    background: var(--clr-heading);
+  }
+
+  strong.yr {
+    font-size: 2rem;
+    font-weight: 900;
+    width: 100%;
+    text-align: center;
+    color: var(--clr-heading);
+  }
+
+  div.holder {
+    overflow: hidden;
+    p {
+      font-size: 0.7rem;
+      position: relative;
+      transition: all 1s ease-in-out;
+    }
+  }
+}
+
+/* //? ********* DIAMOND  */
+#work .timeline .timeline-item .timeline-content::before {
+  content: "";
+  position: absolute;
+  top: 34.5%;
+  left: 16.7rem;
+  z-index: 1;
+  width: 4rem;
+  height: 4rem;
+  transform: rotate(45deg);
+  background: var(--clr-body-bg);
+  border-top: 1px solid var(--clr-heading);
+  border-right: 1px solid var(--clr-heading);
+}
+
+#work .timeline .timeline-item .timeline-content:hover div.holder {
+  transition: all 1s ease-in-out;
+  z-index: 2;
+  background: var(--clr-nav-bg);
+}
+
+/*//? CARD COVER TEXT */
+#work .timeline .timeline-item span.cover-txt {
+  position: absolute;
+  z-index: 1;
+  width: 20rem;
+  height: 32rem;
+  background: transparent !important;
+  -webkit-backdrop-filter: blur(2rem);
+  backdrop-filter: blur(2rem);
+  text-align: center;
+
+  h1 {
+    position: relative;
+    top: 30%;
+    letter-spacing: 1rem;
+    font-size: 10rem;
+    color: var(--clr-heading);
+    transform: rotate(-90deg);
+  }
+}
+
+#work .timeline .timeline-item:hover span.cover-txt {
+  animation: remove-card 2s linear forwards;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+/* //? ************************** AUTO SCROLL SECTION */
+/*** Thi section is for languages a i still like to learn.  */
+#work #toLearn {
+  width: 100%;
+
+  & .infinite-scroll {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    & .scroll {
+      position: relative;
+      display: flex;
+      width: 95%;
+      border-radius: 40%;
+      overflow: hidden;
+
+      & div {
+        display: flex;
+        white-space: nowrap;
+        animation: animate var(--t) linear infinite;
+        animation-delay: calc(var(--t) * -1);
+        border-radius: 40%;
+
+        & div:nth-child(2) {
+          animation: animate2 var(--t) linear infinite;
+          animation-delay: calc(var(--t) / -2);
+        }
+
+        & span {
+          text-wrap: nowrap !important;
+          display: inline-flex;
+          margin: 10px;
+          padding: 7px 15px;
+          background-color: var(--clr-nav-bg);
+          color: #fff;
+          border-radius: 5px;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+        }
+
+        & span:hover {
+          background-color: var(--clr-heading);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+/* ** Animation for the language i want to learn section. The languages scroll on the x-axis infinity */
+@keyframes animate {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes remove-card {
+  0% {
+    top: -1rem;
+    right: 2rem;
+    transform: rotate(100deg) scale(1);
+  }
+  10% {
+    top: -5rem;
+    right: 10rem;
+    transform: rotate(120deg) scale(0.8);
+  }
+  20% {
+    top: -15rem;
+    right: 20rem;
+    transform: rotate(140deg) scale(0.6);
+  }
+  50% {
+    top: -35rem;
+    right: 40rem;
+    transform: rotate(160deg) scale(0.4);
+  }
+  70% {
+    top: -50rem;
+    right: 70rem;
+    transform: rotate(180deg) scale(0.2);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+/* //? ************************** MY TOOLS SECTION */
+#work .wrapper.tools {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: fit-content;
+
+  .img-parent {
+    display: flex;
+    gap: 0.7rem;
+    perspective: 60rem;
+    width: 70%;
+
+    .img {
+      width: 10rem;
+      height: 25rem;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      position: relative;
+      transition: transform 1.25s cubic-bezier(0.1, 0.7, 0.1),
+        filter 3s cubic-bezier(0.1, 0.7, 0.1),
+        width 0.3s cubic-bezier(0.1, 0.7, 0.1);
+      filter: grayscale(1) brightness(0.5);
+      will-change: transition, filter;
+      padding: 0;
+      background-color: #fcfcfc;
+    }
+
+    .img:hover {
+      transform: translateZ(15rem);
+      filter: inherit;
+    }
+
+    .img:hover + * {
+      transform: translateZ(14.77rem) rotateY(35deg);
+      z-index: -1;
+      filter: grayscale(0.2) brightness(0.9);
+    }
+
+    .img:hover + * + * {
+      transform: translateZ(9.74rem) rotateY(40deg);
+      z-index: -2;
+      filter: grayscale(0.4) brightness(0.8);
+    }
+
+    .img:hover + * + * + * {
+      transform: translateZ(4.17rem) rotateY(35deg);
+      z-index: -3;
+      filter: grayscale(0.6) brightness(0.7);
+    }
+
+    .img:hover + * + * + * + * {
+      transform: translateZ(1.1rem) rotateY(25deg);
+      z-index: -4;
+      filter: grayscale(0.8) brightness(0.6);
+    }
+
+    .img:has(+ :hover) {
+      transform: translateZ(14.77rem) rotateY(-35deg);
+      filter: grayscale(0.2) brightness(0.9);
+    }
+
+    .img:has(+ * + :hover) {
+      transform: translateZ(9.74rem) rotateY(-40deg);
+      filter: grayscale(0.4) brightness(0.8);
+    }
+
+    .img:has(+ * + * + :hover) {
+      transform: translateZ(4.17rem) rotateY(-25deg);
+      filter: grayscale(0.6) brightness(0.7);
+    }
+
+    .img:has(+ * + * + * + :hover) {
+      transform: translateZ(1.1rem) rotateY(-25deg);
+      filter: grayscale(0.8) brightness(0.6);
+    }
+
+    .img::before,
+    .img::after {
+      content: "";
+      position: absolute;
+      width: 1.25rem;
+      height: 100%;
+      right: -1.25rem;
+    }
+
+    .img::after {
+      left: -1.25rem;
+    }
+
+    .img:active {
+      position: absolute;
+      background-size: contain;
+      background-repeat: no-repeat;
+      top: -40%;
+      right: 10%;
+      width: 40rem;
+      height: 40rem;
+      z-index: 10;
+      transform: rotate(0) translate(0);
+    }
+  }
+}
+
+/* //? ************************** RESPONSIVE DESIGN ************ /
+/** DESKTOP & LAPTOPS  */
+@media screen and (max-width: 1399px) {
+  #work .timeline .timeline-item .timeline-content {
+    overflow: hidden;
+  }
+}
+
+/** TABLET DEVICES  */
+@media screen and (max-width: 1290px) {
+  #work .timeline .timeline-item .timeline-content::before {
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 1190px) {
+  #work .timeline {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    height: 100% !important;
+    padding-block: 1rem;
+  }
+
+  #work .timeline .timeline-item {
+    width: 25rem !important;
+  }
+
+  #work .timeline .timeline-item span.cover-txt {
+    width: 25rem;
+    height: 40rem;
+  }
+
+  #work .timeline .timeline-item .timeline-content .holder p {
+    font-size: 1.2rem !important;
+  }
+
+  #work .timeline .timeline-item {
+    width: 20rem;
+  }
+
+  /*//? remove the animation  */
+  #work .timeline:hover span.cover-txt {
+    animation: remove-card1 2s linear forwards;
+  }
+
+  #work .timeline:hover span.cover-txt:is(:hover, :focus, :active) {
+    opacity: 0;
+    background-color: transparent;
+  }
+
+  #work .wrapper.tools .img-parent {
+    width: 100% !important;
+  }
+}
+
+/** SMALL DEVICES  */
+@media screen and (max-width: 1000px) {
+  #work .timeline {
+    gap: 2rem;
+  }
+}
+
+/* Responsive Design for Small Devices */
+@media screen and (max-width: 768px) {
+  #work .wrapper.tools {
+    width: 100%;
+  }
+
+  #work .wrapper.tools .img-parent {
+    flex-wrap: nowrap; /* Force horizontal layout */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem; /* Space for scroll indication */
+    width: 1000rem;
+  }
+
+  #work .wrapper.tools .img-parent .img {
+    border: 2px solid white;
+    min-width: 25rem !important;
+    min-height: 10rem !important;
+    filter: none; /* Remove grayscale/brightness for clarity */
+    transition: none; /* Disable hover transitions */
+    display: block;
+  }
+
+  #work .wrapper.tools .img-parent .img:hover {
+    transform: none; /* Disable scale on hover */
+    filter: none; /* No filter change on hover */
+  }
+}

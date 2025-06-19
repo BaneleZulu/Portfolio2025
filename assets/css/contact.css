@@ -1,0 +1,250 @@
+div#contact {
+  padding: 1rem;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+div#contact form {
+  margin-block: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  position: relative;
+  width: 90%;
+  height: 30rem;
+  background: var(--clr-body-bg);
+  border: 1px solid var(--clr-heading);
+}
+
+div#contact form div.form-wrapper-summary {
+  position: absolute;
+  top: 2rem;
+  left: -4rem;
+  height: 25rem;
+  width: 25rem;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  background: var(--clr-body-bg);
+  border: 1px solid var(--clr-heading);
+  box-shadow: 2rem 2rem 2rem var(--clr-card-bg);
+}
+
+div#contact form div.form-wrapper-summary div.top {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  div i {
+    font-size: 1.5rem;
+    color: var(--clr-text);
+  }
+
+  address {
+    width: 100%;
+    color: var(--clr-text);
+  }
+}
+
+div#contact form div.form-wrapper-summary div.bottom {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  i {
+    font-size: 2rem;
+  }
+  a:is(:hover, :focus) {
+    transition: all 0.4s ease-in-out;
+    transform: scale(0.9);
+  }
+  a:hover i {
+    color: var(--clr-deco);
+  }
+}
+
+div#contact form div.form-wrapper-information {
+  width: 70%;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  div.form-data.split {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  div.form-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+
+    label {
+      font-size: 0.9rem;
+      font-family: 400;
+      color: var(--clr-heading);
+    }
+
+    :is(input[type="text"], input[type="email"]) {
+      width: 100%;
+      padding: 0.5rem;
+
+      &::placeholder {
+        font-family: var(--font-txt2);
+        color: #999999;
+      }
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 60dvw;
+      min-width: 40dvw;
+      max-height: 25dvh;
+      min-height: 10dvh;
+    }
+  }
+}
+
+input[type="text"]:is(:hover, :focus),
+input[type="email"]:is(:hover, :focus),
+textarea:is(:hover, :focus) {
+  border: 2px solid transparent;
+  outline: none;
+  border-bottom: 2px solid var(--clr-deco);
+}
+
+div#contact form div.form-wrapper-information .form-data.submit {
+  margin-top: 0.5rem;
+  width: fit-content;
+  padding: 0.2rem 1rem;
+  border: 1px solid var(--clr-heading);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.2rem;
+  background: var(--clr-nav-bg);
+  background-image: linear-gradient(45deg, transparent 50%, #fff 50%);
+  background-position: 25%;
+  background-size: 400%;
+  -webkit-transition: background 500ms ease-in-out, color 500ms ease-in-out;
+  transition: background 500ms ease-in-out, color 500ms ease-in-out;
+
+  input[type="submit"] {
+    color: var(--clr-heading);
+    background: transparent;
+    text-transform: uppercase;
+  }
+
+  i {
+    font-size: 1.5rem;
+    color: var(--clr-heading);
+  }
+
+  &:active {
+    transition: scale 0.4s ease-in-out;
+    transform: scale(0.8);
+  }
+
+  &:hover {
+    background-position: 100%;
+  }
+}
+
+/* //? ************************** RESPONSIVE DESIGN ************ /
+/** TABLET DEVICES  */
+@media screen and (max-width: 1290px) {
+  div#contact form div.form-wrapper-summary {
+    left: -6rem;
+    padding: 0.5rem !important;
+    width: 23rem;
+  }
+}
+@media screen and (max-width: 1040px) {
+  div#contact form div.form-wrapper-summary {
+    left: -7rem;
+    padding: 0.2rem !important;
+    width: 22rem;
+    height: 22rem;
+
+    .top {
+      i {
+        font-size: 1rem;
+      }
+      a {
+        font-size: 1rem;
+      }
+      address {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+/** SMALL DEVICES  */
+@media screen and (max-width: 900px) {
+  div#contact form {
+    width: 100%;
+  }
+
+  div#contact form div.form-wrapper-summary {
+    top: 30rem !important;
+    padding: 0.5rem !important;
+    left: 0;
+    width: 100%;
+    height: 10rem;
+  }
+
+  div#contact form div.form-wrapper-information {
+    width: 100%;
+    padding: 1rem !important;
+  }
+
+  div.form-data.split {
+    gap: 0.5rem;
+  }
+
+  textarea {
+    width: 100%;
+    max-width: 92dvw !important;
+    min-width: 50dvw !important;
+    max-height: 25dvh;
+    min-height: 10dvh;
+  }
+}
+
+@media screen and (max-width: 690px) {
+  div.form-data.split {
+    display: flex;
+    flex-direction: column !important;
+  }
+}
