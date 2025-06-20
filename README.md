@@ -1,4 +1,4 @@
-Personal Portfolio Website: Project Skeleton
+Personal Portfolio Website: Project Skeleton 
 Welcome to my Developer Portfolio! Here, I showcase my skills, projects, and experiences as a software developer. My goal is to provide solutions that not only meet but exceed expectations. 
 Dive in to explore my journey, strengths, specializations, and the services I offer.
 
