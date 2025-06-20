@@ -35,7 +35,6 @@ tabsContainer.addEventListener("keydown", (e) => {
 // Move focus to the previous tab (ArrowLeft)
 function moveLeft() {
   const currentTab = document.activeElement;
-
   if (!currentTab.previousElementSibling) {
     tabButtons.item(tabButtons.length - 1).focus();
   } else {
@@ -59,7 +58,10 @@ function switchTab(newTab) {
   const activePanelId = newTab.getAttribute("aria-controls");
   const activePanel = document.getElementById(activePanelId);
 
-  if (!activePanel) return; // Make sure the panel exists
+  if (!activePanel) {
+    console.error(`Panel with ID ${activePanelId} not found`);
+    return;
+  }
 
   // Hide all panels
   tabPanels.forEach((panel) => {
@@ -84,6 +86,10 @@ function switchTab(newTab) {
   const contentUrl = newTab.getAttribute("data-url");
   if (contentUrl) {
     loadContent(contentUrl, activePanel);
+  } else {
+    console.error(`No data-url found for tab ${newTab.id}`);
+    activePanel.innerHTML =
+      "<p>Error: No content URL specified for this tab.</p>";
   }
 
   // Hide mobile nav after tab click if small-screen-nav is active
@@ -92,18 +98,27 @@ function switchTab(newTab) {
     tabsContainer.classList.add("navigate");
   }
 }
+
 // Load external content into a tab panel via AJAX
 function loadContent(url, panel) {
-  if (!url) return;
+  if (!url) {
+    console.error("No URL provided for content loading");
+    panel.innerHTML = "<p>Error: No content URL provided.</p>";
+    return;
+  }
 
   $.ajax({
     url: url,
     method: "GET",
     success: function (data) {
       panel.innerHTML = data; // Update the panel's content
+      console.log(`Loaded content from ${url}`);
     },
-    error: function () {
-      panel.innerHTML = "<p>Error loading content. Please try again.</p>";
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error(
+        `Failed to load content from ${url}: ${textStatus} - ${errorThrown}`
+      );
+      panel.innerHTML = `<p>Error loading content from ${url}. Please try again.</p>`;
     },
   });
 }
@@ -141,13 +156,14 @@ function moveIndicator(oldTab, newTab) {
 // Initialize the home tab to be active and load content for it by default
 document.addEventListener("DOMContentLoaded", () => {
   const firstTab = tabButtons[0];
-  switchTab(firstTab); // Set the first tab as active by default
+  if (firstTab) {
+    switchTab(firstTab); // Set the first tab as active by default
+  } else {
+    console.error("No tab buttons found");
+  }
 });
 
-/*//? ************************************** FLOATING NAV *********************************************** */
-//** Reactive navigation code */
-//** Navigation header changes colors in response to scroll position on the y-axis */
-//** Default color Black, y-axis > 1000 new color : Transparent */
+/* Floating Navigation */
 const top_nav = document.querySelector(".top_lvl_header");
 
 window.onscroll = function () {
@@ -164,7 +180,8 @@ function nav_manipulator() {
     tabsContainer.classList.add("navigate");
   }
 }
-/*//? ************************************** MENU CONTROL | RENDER NAV ON SMALL SCREENS *********************************************** */
+
+/* Menu Control for Small Screens */
 const navButton = document.querySelector(".toggle-menu");
 navButton.addEventListener("click", () => {
   tabsContainer.classList.add("small-screen-nav");
@@ -172,7 +189,7 @@ navButton.addEventListener("click", () => {
   tabsContainer.classList.remove("float-nav");
 });
 
-/*//? ************************************** THEME CONTROL | RENDER COLOR PALETTE *********************************************** */
+/* Theme Control */
 document.querySelector(".logo").addEventListener("click", () => {
   const colorPicker = document.querySelector(".color-picker");
   const inputs = colorPicker.querySelectorAll("input");
@@ -198,21 +215,20 @@ document.querySelector(".logo").addEventListener("click", () => {
         const angle = index / (inputs.length - 1); // Calculate angle for arch
         const radius = 100; // Radius of the arch
         const x = radius * Math.cos(angle);
-        input.style.transform = `translate(${x}px,)`;
+        input.style.transform = `translate(${x}px)`;
       }, index * 50); // Stagger the animations
     });
   }
 });
 
-/*//? ************************************** THEME CONTROL *********************************************** */
-// ? This will store the temp color on local storage to ensure color is kept after refresh.
+/* Theme Persistence */
 const colorThemes = document.querySelectorAll('[name="theme"]');
-// store theme
+// Store theme
 const storeTheme = function (theme) {
   localStorage.setItem("theme", theme);
 };
 
-// set theme when visitor returns
+// Set theme when visitor returns
 const setTheme = function () {
   const activeTheme = localStorage.getItem("theme");
   colorThemes.forEach((themeOption) => {
@@ -220,23 +236,21 @@ const setTheme = function () {
       themeOption.checked = true;
     }
   });
-  // fallback for no :has() support
-  document.documentElement.className = activeTheme;
+  // Fallback for no :has() support
+  document.documentElement.className = activeTheme || "light"; // Default to light theme
 };
 
 colorThemes.forEach((themeOption) => {
   themeOption.addEventListener("click", () => {
     storeTheme(themeOption.id);
-    // fallback for no :has() support
     document.documentElement.className = themeOption.id;
   });
 });
 
-document.onload = setTheme();
+document.addEventListener("DOMContentLoaded", setTheme);
 
-/*//? ************************************** WHAT I DO *********************************************** */
-document.getElementById("cards").onmousemove = (e) => {
-  console.log("moving");
+/* Card Hover Effects */
+document.getElementById("cards")?.addEventListener("mousemove", (e) => {
   for (const card of document.getElementsByClassName("card")) {
     const rect = card.getBoundingClientRect(),
       x = e.clientX - rect.left,
@@ -245,11 +259,11 @@ document.getElementById("cards").onmousemove = (e) => {
     card.style.setProperty("--mouse-x", `${x}px`);
     card.style.setProperty("--mouse-y", `${y}px`);
   }
-};
+});
 
-/*//? ************************************** MINI IMAGE ROUND  *********************************************** */
+/* Mini Image Round */
 const images = document.querySelectorAll(".project-img");
-document.querySelector(".mini-image").addEventListener("click", function () {
+document.querySelector(".mini-image")?.addEventListener("click", function () {
   images.forEach((img) => {
     if (img.style.visibility === "visible") {
       img.style.visibility = "hidden";
@@ -268,15 +282,15 @@ document.querySelector(".mini-image").addEventListener("click", function () {
   });
 });
 
-// remove images on hover
-document.querySelector(".main-img").addEventListener("mouseover", () => {
-  images.forEach((img, index) => {
+// Remove images on hover
+document.querySelector(".main-img")?.addEventListener("mouseover", () => {
+  images.forEach((img) => {
     img.style.visibility = "hidden";
     img.style.transition = "all .2s ease";
   });
 });
 
-/*//? ************************************** SCROLL TO TOP *********************************************** */
+/* Scroll to Top */
 const scrollToTopButton = document.getElementById("scrollToTop");
 scrollToTopButton.addEventListener("click", function () {
   window.scrollTo({
@@ -285,80 +299,87 @@ scrollToTopButton.addEventListener("click", function () {
   });
 });
 
-/*//? ************************************** SERVICE STEP DESIGN *********************************************** */
+/* Service Step Design */
 const steps = document.querySelectorAll(".process-step");
 const descriptions = document.querySelectorAll(".step-description");
 
 // Show the description for the first step by default
-descriptions[0].style.display = "block";
-steps[0].classList.add("active");
+if (descriptions[0]) descriptions[0].style.display = "block";
+if (steps[0]) steps[0].classList.add("active");
 
 steps.forEach((step) => {
   step.addEventListener("click", () => {
     const stepId = step.getAttribute("data-step");
+    const description = document.getElementById(stepId);
+
+    if (!description) {
+      console.error(`Description with ID ${stepId} not found`);
+      return;
+    }
 
     // Hide all descriptions
     descriptions.forEach((desc) => {
       desc.style.display = "none";
     });
 
-    // Show the hovered step's description
-    document.getElementById(stepId).style.display = "block";
+    // Show the clicked step's description
+    description.style.display = "block";
 
     // Remove active class from all steps
     steps.forEach((s) => s.classList.remove("active"));
 
-    // Add active class to the hovered step
+    // Add active class to the clicked step
     step.classList.add("active");
-    steps.classList.add("active");
   });
 });
 
-/*//? ************************************** TOOLS SCROLL FUNCTIONALITY DESIGN *********************************************** */
+/* Tools Scroll Functionality */
 const imgParent = document.querySelector("#work .wrapper.tools .img-parent");
-let isDragging = false;
-let startX, scrollLeft;
+if (imgParent) {
+  let isDragging = false;
+  let startX, scrollLeft;
 
-imgParent.addEventListener("mousedown", (e) => {
-  isDragging = true;
-  startX = e.pageX - imgParent.offsetLeft;
-  scrollLeft = imgParent.scrollLeft;
-  imgParent.style.cursor = "grabbing";
-});
+  imgParent.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.pageX - imgParent.offsetLeft;
+    scrollLeft = imgParent.scrollLeft;
+    imgParent.style.cursor = "grabbing";
+  });
 
-imgParent.addEventListener("mouseleave", () => {
-  isDragging = false;
-  imgParent.style.cursor = "grab";
-});
+  imgParent.addEventListener("mouseleave", () => {
+    isDragging = false;
+    imgParent.style.cursor = "grab";
+  });
 
-imgParent.addEventListener("mouseup", () => {
-  isDragging = false;
-  imgParent.style.cursor = "grab";
-});
+  imgParent.addEventListener("mouseup", () => {
+    isDragging = false;
+    imgParent.style.cursor = "grab";
+  });
 
-imgParent.addEventListener("mousemove", (e) => {
-  if (!isDragging) return;
-  e.preventDefault();
-  const x = e.pageX - imgParent.offsetLeft;
-  const walk = (x - startX) * 2; // Adjust drag speed
-  imgParent.scrollLeft = scrollLeft - walk;
-});
+  imgParent.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - imgParent.offsetLeft;
+    const walk = (x - startX) * 2; // Adjust drag speed
+    imgParent.scrollLeft = scrollLeft - walk;
+  });
 
-// Touch events for mobile
-imgParent.addEventListener("touchstart", (e) => {
-  isDragging = true;
-  startX = e.touches[0].pageX - imgParent.offsetLeft;
-  scrollLeft = imgParent.scrollLeft;
-});
+  // Touch events for mobile
+  imgParent.addEventListener("touchstart", (e) => {
+    isDragging = true;
+    startX = e.touches[0].pageX - imgParent.offsetLeft;
+    scrollLeft = imgParent.scrollLeft;
+  });
 
-imgParent.addEventListener("touchend", () => {
-  isDragging = false;
-});
+  imgParent.addEventListener("touchend", () => {
+    isDragging = false;
+  });
 
-imgParent.addEventListener("touchmove", (e) => {
-  if (!isDragging) return;
-  e.preventDefault();
-  const x = e.touches[0].pageX - imgParent.offsetLeft;
-  const walk = (x - startX) * 2;
-  imgParent.scrollLeft = scrollLeft - walk;
-});
+  imgParent.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.touches[0].pageX - imgParent.offsetLeft;
+    const walk = (x - startX) * 2;
+    imgParent.scrollLeft = scrollLeft - walk;
+  });
+}
